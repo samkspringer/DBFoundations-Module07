@@ -225,6 +225,7 @@ From
 go
 */
 --Sort results by Product Name
+Go
 Select 
 	ProductName
 	,[Price in USD] = Format (UnitPrice, 'c')
@@ -398,11 +399,11 @@ AS
 		,i.Count
 ;
 go
-/*
+
 -- Check that it works: Select * From vProductInventories;
 Select * From vProductInventories
 go
-*/
+
 -- Question 5 (10% of pts): 
 -- CREATE A VIEW called vCategoryInventories. 
 -- Shows a list of Category names, Inventory Dates, and a TOTAL Inventory Count BY CATEGORY
@@ -533,10 +534,10 @@ Order By
 ;
 go
 -- Check that it works: Select * From vCategoryInventories;
-/*
+
 Select * From vCategoryInventories
 go
-*/
+
 -- Question 6 (10% of pts): 
 -- CREATE ANOTHER VIEW called vProductInventoriesWithPreviousMonthCounts. 
 -- Show a list of Product names, Inventory Dates, Inventory Count, AND the Previous Month Count.
@@ -562,17 +563,17 @@ As
 Select 
 	ProductName
 	,InventoryDate
-	,[InventoryCount] = Count
+	,InventoryCount
 	,[PreviousMonthCount] = 
-		IIF(DateName(mm, InventoryDate) + ', ' + DateName(yyyy, InventoryDate) = 'January, 2017', 0, Lag(Count) Over (Order By ProductName))
+		IIF(DateName(mm, InventoryDate) + ', ' + DateName(yyyy, InventoryDate) = 'January, 2017', 0, Lag(InventoryCount) Over (Order By ProductName))
 From 
 	vProductInventories;
 Go
 -- Check that it works: Select * From vProductInventoriesWithPreviousMonthCounts;
-/*
+
 Select * From vProductInventoriesWithPreviousMonthCounts
 go
-*/
+
 -- Question 7 (15% of pts): 
 -- CREATE a VIEW called vProductInventoriesWithPreviousMonthCountsWithKPIs.
 -- Show columns for the Product names, Inventory Dates, Inventory Count, Previous Month Count. 
@@ -617,12 +618,12 @@ From
 	vProductInventoriesWithPreviousMonthCounts
 ;
 go
-/*
+
 -- Important: This new view must use your vProductInventoriesWithPreviousMonthCounts view!
 -- Check that it works: Select * From vProductInventoriesWithPreviousMonthCountsWithKPIs;
 Select * From vProductInventoriesWithPreviousMonthCountsWithKPIs
 go
-*/
+
 -- Question 8 (25% of pts): 
 -- CREATE a User Defined Function (UDF) called fProductInventoriesWithPreviousMonthCountsWithKPIs.
 -- Show columns for the Product names, Inventory Dates, Inventory Count, the Previous Month Count. 
